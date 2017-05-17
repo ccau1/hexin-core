@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const indicative = require('indicative');
-const {HandleError} = require('../../appFramework/helpers');
+const {HandleError} = require('../helpers');
 
 module.exports = class ServiceBase {
   constructor(context_, model) {
