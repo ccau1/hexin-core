@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const {HandleError} = require('../../appFramework/helpers');
+const {HandleError} = require('../helpers');
 const objectID = require('mongodb').ObjectID;
 const ServiceBase = require('./ServiceBase');
 
