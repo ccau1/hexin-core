@@ -4,5 +4,20 @@
   "description": "Hexin Framework's core library",
   "author": "ccau1",
   "license": "MIT",
-  "main": "./index.js"
+  "main": "./index.js",
+  "dependencies": {
+    "braintree": "^2.1.1",
+    "co": "^4.6.0",
+    "express": "^4.15.2",
+    "fivebeans": "^1.5.0",
+    "fs": "0.0.1-security",
+    "indicative": "^2.2.1",
+    "lodash": "^4.17.4",
+    "mongodb": "^2.2.26",
+    "path": "^0.12.7",
+    "redis": "^2.7.1",
+    "require-dir": "^0.3.1",
+    "restler": "^3.4.0",
+    "winston": "^2.3.1"
+  }
 }

@@ -5,6 +5,7 @@ const BrainTree = require('./BrainTree');
 const FiveBeans = require('./FiveBeans');
 const HandleError = require('./HandleError');
 const Locale = require('./Locale');
+const Logger = require('./Logger');
 const Redis = require('./Redis');
 const Request = require('./Request');
 const Token = require('./Token');
@@ -15,6 +16,7 @@ module.exports = {
   FiveBeans,
   HandleError,
   Locale,
+  Logger,
   Redis,
   Request,
   Token,
