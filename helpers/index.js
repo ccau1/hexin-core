@@ -2,6 +2,7 @@
 
 // in alphabetical order
 const BrainTree = require('./BrainTree');
+const Database = require('./Database');
 const FiveBeans = require('./FiveBeans');
 const HandleError = require('./HandleError');
 const Locale = require('./Locale');
@@ -13,6 +14,7 @@ const Token = require('./Token');
 // in alphabetical order
 module.exports = {
   BrainTree,
+  Database,
   FiveBeans,
   HandleError,
   Locale,
