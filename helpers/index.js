@@ -7,6 +7,7 @@ const FiveBeans = require('./FiveBeans');
 const HandleError = require('./HandleError');
 const Locale = require('./Locale');
 const Logger = require('./Logger');
+const Plop = require('./Plop');
 const Redis = require('./Redis');
 const Request = require('./Request');
 const Token = require('./Token');
@@ -19,6 +20,7 @@ module.exports = {
   HandleError,
   Locale,
   Logger,
+  Plop,
   Redis,
   Request,
   Token,

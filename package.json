@@ -23,5 +23,8 @@
     "require-dir": "^0.3.1",
     "restler": "^3.4.0",
     "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "pluralize": "^5.0.0"
   }
 }
