@@ -1,14 +1,14 @@
 'use strict';
 
 module.exports = class AppStartConfig {
-  constructor(appConfig) {
+  constructor(appConfig: Object) {
     this.appConfig = appConfig;
     this.preInit(appConfig);
   }
 
-  preInit() { }
+  preInit(appConfig: Object) { }
 
-  init() { }
+  init(appConfig: Object) { }
 
-  postInit() { }
+  postInit(appConfig: Object) { }
 };
