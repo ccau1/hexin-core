@@ -36,7 +36,7 @@ module.exports.actions = function (data) {
   actions.push({
     type: 'add',
     path: 'app/controllers/{{pascalCase name}}Controller.js',
-    templateFile: 'plopTemplates/controller/controller.js',
+    templateFile: __dirname + '/controller.js',
   });
 
   actions.push({

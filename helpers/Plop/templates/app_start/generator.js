@@ -25,7 +25,7 @@ module.exports.actions = function (data) {
   actions.push({
     type: 'add',
     path: 'app_start/{{camelCase name}}Config.js',
-    templateFile: 'plopTemplates/app_start/appConfig.js',
+    templateFile: __dirname + '/appConfig.js',
   });
 
   actions.push({

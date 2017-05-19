@@ -26,7 +26,7 @@ module.exports.actions = function (data) {
   actions.push({
     type: 'add',
     path: 'app/services/{{pascalCase name}}Service.js',
-    templateFile: 'plopTemplates/service/service.js',
+    templateFile: __dirname + '/service.js',
   });
 
   actions.push({
