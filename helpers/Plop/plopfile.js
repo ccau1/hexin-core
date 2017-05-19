@@ -8,7 +8,13 @@ const controllerGenerator = require('./templates/controller/generator');
 const serviceGenerator = require('./templates/service/generator');
 const appStartGenerator = require('./templates/app_start/generator');
 
-export const setHelpers = function (plop) {
+module.exports = function (plop) {
+  this.setHelpers(plop);
+  this.setPrompts(plop);
+  this.setGenerators(plop);
+};
+
+module.exports.setHelpers = function (plop) {
   plop.addHelper('absPath', function (val) {
     return path.resolve(plop.getPlopfilePath(), val);
   });
@@ -17,12 +23,12 @@ export const setHelpers = function (plop) {
   });
 };
 
-export const setPrompts = function (plop) {
+module.exports.setPrompts = function (plop) {
   // adding a custom inquirer prompt type
   plop.addPrompt('directory', require('inquirer-directory'));
 };
 
-export const setGenerators = function (plop) {
+module.exports.setGenerators = function (plop) {
   // create your generators here
   plop.setGenerator('Model', {
     description: 'Application Model',

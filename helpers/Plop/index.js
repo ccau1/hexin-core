@@ -1,4 +1,4 @@
-const template = require('./templates');
+const templates = require('./templates');
 const plopfile = require('./plopfile');
 
 module.exports = plopfile;
