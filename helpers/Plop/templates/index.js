@@ -1,9 +1,10 @@
-import app_start from './app_start';
-import controller from './controller';
-import model from './model';
-import service from './service';
+const app_start = require('./app_start');
+const controller = require('./controller');
+const model = require('./model');
+const service = require('./service');
 
-export {
+
+module.exports = {
   app_start,
   controller,
   model,

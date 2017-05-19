@@ -6,24 +6,25 @@ Table of contents
 =================
 
   * [AppStart](#appstart)
-    * [AppStartBase](#AppStartBase)
-    * [AppStartConfig](#AppStartConfig)
-  * [Controller](#Controller)
-    * [ControllerBase](#ControllerBase)
-    * [ControllerCrudBase](#ControllerCrudBase)
-  * [Service](#Service)
-    * [ServiceBase](#ServiceBase)
-    * [ServiceCrudBase](#ServiceCrudBase)
+    * [AppStartBase](#appstartbase)
+    * [AppStartConfig](#appstartconfig)
+  * [Controller](#controller)
+    * [ControllerBase](#controllerbase)
+    * [ControllerCrudBase](#controllercrudbase)
+  * [Service](#service)
+    * [ServiceBase](#servicebase)
+    * [ServiceCrudBase](#servicecrudbase)
   * [Helper](#helper)
+    * [Plop](#plop)
     * [Database](#database)
-    * [BrainTree](#BrainTree)
-    * [FiveBeans](#FiveBeans)
-    * [HandleError](#HandleError)
-    * [Locale](#Locale)
-    * [Logger](#Logger)
-    * [Redis](#Redis)
-    * [Request](#Request)
-    * [Token](#Token)
+    * [BrainTree](#braintree)
+    * [FiveBeans](#fivebeans)
+    * [HandleError](#handleerror)
+    * [Locale](#locale)
+    * [Logger](#logger)
+    * [Redis](#redis)
+    * [Request](#request)
+    * [Token](#token)
 
 ## AppStart
 ### AppStartBase
@@ -152,6 +153,8 @@ This class extends the ServiceBase and handles the basic CRUD methods based on t
 
 ## Helpers
 
+### Plop
+(Documentation coming soon)
 ### Database
 (Documentation coming soon)
 ### BrainTree
