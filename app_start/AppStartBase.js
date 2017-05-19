@@ -7,7 +7,7 @@ module.exports = class AppStart {
   static get HANDLE_LIST_BEGINNING() { return true; }
   static get HANDLE_LIST_END() { return false; }
 
-  constructor(appConfig) {
+  constructor(appConfig: Object) {
     //  create our express application
     appConfig.app = express();
     //  create an instance of router for api
@@ -39,11 +39,11 @@ module.exports = class AppStart {
     return true;
   }
 
-  setConfig(appConfig) {
+  setConfig(appConfig: Object) {
     throw new HandleError({message: 'AppStart must override setConfig(appConfig)'});
   }
 
-  setHandlers(appConfig) {
+  setHandlers(appConfig: Object) {
     throw new HandleError({message: 'AppStart must override setHandler(appConfig)'});
   }
 
