@@ -27,7 +27,7 @@ module.exports = class ControllerBase {
     return res.status(401).json({message: 'Unauthorized'});
   }
 
-  authorize(req_, res_, next_): Function {
+  authorize(req_, res_, next_) {
     // if its called as middleware, just call authenticate
     if (req_ && typeof req_ !== 'string') {
       return this.authenticate(req_, res_, next_);
@@ -48,14 +48,14 @@ module.exports = class ControllerBase {
     };
   }
 
-  renderRoutes(router: Object): void {
+  renderRoutes(router) {
     console.warn('## Controller "' + this.controllerName + '" should override method renderRoutes(routes)');
   }
 
   /**
    * Check if verb is within the verb listen
    */
-  isVerb(verb: string, inVerbList: Array<string>|string): boolean {
+  isVerb(verb, inVerbList) {
     if (!inVerbList) return false;
     if (!Array.isArray(inVerbList)) {
       inVerbList = inVerbList.split('|');
