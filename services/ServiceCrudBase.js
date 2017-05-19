@@ -50,7 +50,7 @@ module.exports = class ServiceCrudBase extends ServiceBase {
     }
     const modelObj = yield _model.findOne({_id: _id}).lean();
     if (!modelObj) {
-      throw new HandleError({_error: [t('err_not_found')]}, 400);
+      throw new HandleError({_error: [t('err_not_found', [_model.modelName])]}, 400);
     }
     return modelObj;
   }
@@ -84,7 +84,7 @@ module.exports = class ServiceCrudBase extends ServiceBase {
 
     let deletedObj = yield _model.findByIdAndRemove(_id);
     if (!deletedObj) {
-      throw new HandleError({_error: [t('err_not_found')]}, 400);
+      throw new HandleError({_error: [t('err_not_found', [_model.modelName])]}, 400);
     }
 
     return deletedObj.toObject();

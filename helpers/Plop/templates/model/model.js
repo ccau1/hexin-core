@@ -9,7 +9,7 @@ const $1Schema = new Schema({
 
 // Execute before each model.save() call
 $1Schema.pre('save', function (callback) {
-  return this;
+  callback();
 });
 
 // Export the Mongoose model
