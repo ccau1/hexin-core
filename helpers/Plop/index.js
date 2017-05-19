@@ -1,6 +1,5 @@
-import templates from './templates';
-import plopfile from './plopfile';
+const template = require('./templates');
+const plopfile = require('./plopfile');
 
-
-export templates;
-export default plopfile;
+module.exports = plopfile;
+module.exports.templates = templates;

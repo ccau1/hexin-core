@@ -1,3 +1,3 @@
-import generator from './generator';
+const generator = require('./generator');
 
-export generator;
+module.exports = generator;
