@@ -17,7 +17,7 @@ module.exports.actions = function (data) {
     {
       type: 'add',
       path: 'app/models/{{pascalCase name}}.js',
-      templateFile: 'plopTemplates/model/model.js',
+      templateFile: __dirname + '/model.js',
     },
     {
       type: 'modify',
