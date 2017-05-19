@@ -1,12 +1,36 @@
 # HEXIN Framework Core Library
 A list of core libraries for the HEXIN node framework
 
+
+Table of contents
+=================
+
+  * [AppStart](#appstart)
+    * [AppStartBase](#AppStartBase)
+    * [AppStartConfig](#AppStartConfig)
+  * [Controller](#Controller)
+    * [ControllerBase](#ControllerBase)
+    * [ControllerCrudBase](#ControllerCrudBase)
+  * [Service](#Service)
+    * [ServiceBase](#ServiceBase)
+    * [ServiceCrudBase](#ServiceCrudBase)
+  * [Helper](#helper)
+    * [Database](#database)
+    * [BrainTree](#BrainTree)
+    * [FiveBeans](#FiveBeans)
+    * [HandleError](#HandleError)
+    * [Locale](#Locale)
+    * [Logger](#Logger)
+    * [Redis](#Redis)
+    * [Request](#Request)
+    * [Token](#Token)
+
 ## AppStart
 ### AppStartBase
 `super(appConfig: Object)` - pass appConfig into constructor
 `getBaseConfig()` - Function that returns base config set by AppStart
 `setConfig(appConfig: Object)` - Function that allows modification to appConfig before any handlers are called
-```
+```javascript
 setConfig(appConfig) {
     //    port
     appConfig.port = process.env.PORT || 8280;
@@ -17,14 +41,14 @@ setConfig(appConfig) {
 }
 ```
 `setHandlers(appConfig: Object)` - (Must Override) Function where all handles are declared
-```
+```javascript
 setHandlers(appConfig) {
     this.handle(new Auth(appConfig));
     this.handle(new Controllers(appConfig));
 }
 ```
 `handle(handle: , addToBeginning: boolean = false)` - declare a handle to call during build phrase
-```
+```javascript
 this.handle(new Controllers(appConfig));
 ```
 
@@ -51,22 +75,22 @@ This class provides methods to handle routes
 `this.m` - Service that was passed into the constructor
 
 `renderRoute(router: Object): void` - Developers will use this method to declare all their routes using the `router` object passed into the argument. all routes using `router.{verb}({path}, ...` will fall under `api/{controllerName}/{path}`
-```
+```javascript
 router.post('/', (req, res, next) {
 ```
 `authenticate` - Middleware that checks if user is logged in
-```
+```javascript
 router.post('/', this.authenticate, (req, res, next)
 ```
 `authorize(...roles: Array<string>)` - Middleware that checks if user consists any of the listed roles
-```
+```javascript
 router.post('/', this.authorize, (req, res, next) {
 router.post('/', this.authorize(), (req, res, next) { (same as above)
 router.post('/', this.authorize('user', 'admin'), (req, res, next) {
 ```
 
 `this.isVerb(verb: string, inVerbList: Array<string>|string): boolean` - Function that returns true if first arg is in second argument. Useful for checking if req.method is equal to one of the verbs listed
-```
+```javascript
 this.isVerb(req.method, 'PUT|POST|DELETE')
 this.isVerb(req.method, ['PUT', 'POST', 'DELETE'])
 ```
@@ -80,7 +104,7 @@ This class extends the ControllerBase and handles the basic CRUD methods based o
 - controllerName - route url path `api/{route}/`
 - service - service that manage majority of the data manipulation and persistence
 - middlewares - list of middleware that governs all ControllerCrudBase calls
-```
+```javascript
   constructor(app) {
     const baseMiddlewares = [
         (req, res, next) => {
