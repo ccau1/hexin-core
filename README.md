@@ -56,24 +56,24 @@ this.handle(new Controllers(appConfig));
 ### AppStartConfig
 AppStartConfig provides the basic lifecycle of the build phase in an app_start
 
-`preInit()` - defines configurations before server starts
-`init()` - defines configurations during server start
-`postInit()` - defines configurations after server starts
+`preInit()` - defines configurations before server starts.
+`init()` - defines configurations during server start.
+`postInit()` - defines configurations after server starts.
 
 ## Controller
 ### ControllerBase
 This class provides methods to handle routes
 
-`constructor(app: Object)` - app holds the router that represents `api/`
+`constructor(app: Object)` - app holds the router that represents `api/`.
 `super(app[, controllerName[, service]])`
-- app - app holds the router that represents `api/`
-- controllerName - route url path `api/{route}/`
-- service - service that manage majority of the data manipulation and persistence
+- app - app holds the router that represents `api/`.
+- controllerName - route url path `api/{route}/`.
+- service - service that manage majority of the data manipulation and persistence.
 
-`this.a` - Router that handles `api/`
-`this.r` - Router that handles `api/{controllerName}/` (same as renderRoute's router argument)
-`this.controllerName` - Variable that represents the controller name in the url path
-`this.m` - Service that was passed into the constructor
+`this.a` - Router that handles `api/`.
+`this.r` - Router that handles `api/{controllerName}/` (same as renderRoute's router argument).
+`this.controllerName` - Variable that represents the controller name in the url path.
+`this.m` - Service that was passed into the constructor.
 
 `renderRoute(router: Object): void` - Developers will use this method to declare all their routes using the `router` object passed into the argument. all routes using `router.{verb}({path}, ...` will fall under `api/{controllerName}/{path}`
 ```javascript
@@ -99,7 +99,7 @@ this.isVerb(req.method, ['PUT', 'POST', 'DELETE'])
 ### ControllerCrudBase
 This class extends the ControllerBase and handles the basic CRUD methods based on the Service passed into the constructor
 
-`constructor(app: Object)` - app holds the router that represents `api/`
+`constructor(app: Object)` - app holds the router that represents `api/`.
 `super(app[, controllerName[, service[, middlewares]]])`
 - app - app holds the router that represents `api/`
 - controllerName - route url path `api/{route}/`

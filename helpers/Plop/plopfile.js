@@ -25,7 +25,7 @@ module.exports.setHelpers = function (plop) {
 
 module.exports.setPrompts = function (plop) {
   // adding a custom inquirer prompt type
-  plop.addPrompt('directory', require('inquirer-directory'));
+  // plop.addPrompt('directory', require('inquirer-directory'));
 };
 
 module.exports.setGenerators = function (plop) {
