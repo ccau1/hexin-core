@@ -9,9 +9,9 @@ const serviceGenerator = require('./templates/service/generator');
 const appStartGenerator = require('./templates/app_start/generator');
 
 module.exports = function (plop) {
-  this.setHelpers(plop);
-  this.setPrompts(plop);
-  this.setGenerators(plop);
+  module.exports.setHelpers(plop);
+  module.exports.setPrompts(plop);
+  module.exports.setGenerators(plop);
 };
 
 module.exports.setHelpers = function (plop) {
