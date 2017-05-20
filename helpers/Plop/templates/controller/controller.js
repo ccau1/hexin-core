@@ -13,7 +13,16 @@
                                                   - Usage:
                                                       - router.post('/', this.authorize, (req, res, next) => {
                                                       - router.post('/', this.authorize('user', 'admin'), (req, res, next) => {
-  isVerb(verb, inVerbList)                    - Function that returns a boolean whether first arg is in second arg
+  this.isVerb(verb, inVerbList)                    - Function that returns a boolean whether first arg is in second arg
+
+  ControllerCrudBase includes the following routes
+  ---------------------------------------------------------------------------------------------------------------------
+  [GET] api/$3/                               - returns all available entries
+  [GET] api/$3/:_id                           - returns entry by _id
+  [POST] api/$3/                              - create new entry and return created entry
+  [PUT] api/$3/:_id                           - update entry by _id. BODY: $2 Object
+  [DELETE] api/$3/:_id                        - delete entry by _id
+
 */
 
 
