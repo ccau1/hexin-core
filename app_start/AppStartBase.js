@@ -13,8 +13,8 @@ module.exports = class AppStart {
     //  create an instance of router for api
     appConfig.router = express();
     //  set config
-    this.setConfig(appConfig);
     this.appConfig = Object.assign(this.getBaseConfig(), appConfig);
+    this.setConfig(this.appConfig);
 
     this.handleList = [];
     this.setHandlers(this.appConfig);
@@ -57,10 +57,10 @@ module.exports = class AppStart {
 
   init() {
     this.handleList.forEach(handle => {
-      handle.init();
+      handle.init(this.appConfig);
     });
     this.handleList.forEach(handle => {
-      handle.postInit();
+      handle.postInit(this.appConfig);
     });
   }
 };
