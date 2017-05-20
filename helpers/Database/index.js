@@ -10,6 +10,11 @@ module.exports.init = (name, config) => {
   }
 };
 
+module.exports.setDefault = (name) => {
+  const connection = module.exports.connection;
+  connection.default = connection[name];
+};
+
 module.exports.getConnection = (name) => {
   const connection = module.exports.connection;
   return connection[name] || connection.default;
