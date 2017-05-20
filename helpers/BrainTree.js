@@ -7,12 +7,12 @@ module.exports = class BrainTree {
 };
 
 module.exports.configs = null;
-module.exports.gateway = null;
+module.exports.client = null;
 
 /**
  * configure braintree
  */
-module.exports.configure = function (configs) {
+module.exports.setConfig = function (configs) {
   module.exports.configs = configs;
 };
 /**
@@ -20,19 +20,19 @@ module.exports.configure = function (configs) {
  */
 module.exports.connect = function () {
   if (module.exports.configs === null) {
-    throw new Error('Please configure before connect.');
+    throw new Error('Braintree::Please configure before connect.');
   }
-  module.exports.gateway = braintree.connect(module.exports.configs);
+  module.exports.client = braintree.connect(module.exports.configs);
 };
 /**
  * get client token
  */
 module.exports.generateClientToken = function () {
-  if (module.exports.gateway === null) {
-    throw new Error('gateway is not connected yet.');
+  if (module.exports.client === null) {
+    throw new Error('Braintree::Client is not connected yet.');
   }
 
-  module.exports.gateway.clientToken.generate({}, function (err, response) {
+  module.exports.client.clientToken.generate({}, function (err, response) {
     return response.clientToken;
   });
 };
