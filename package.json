@@ -1,5 +1,5 @@
 {
-  "version": "0.1.19",
+  "version": "0.1.21",
   "name": "hexin-core",
   "description": "Hexin Framework's core library",
   "author": "ccau1",
@@ -12,20 +12,20 @@
     "fivebeans": "^1.5.0",
     "fs": "0.0.1-security",
     "indicative": "^2.2.1",
+    "inquirer-directory": "^2.1.0",
     "lodash": "^4.17.4",
     "mongodb": "^2.2.26",
     "mongoose": "^4.9.9",
     "mongoose-auto-increment": "^5.0.1",
     "mongoose-long": "^0.1.1",
     "mysql": "^2.13.0",
+    "nodemailer": "^4.0.1",
     "path": "^0.12.7",
+    "pluralize": "^5.0.0",
     "redis": "^2.7.1",
     "require-dir": "^0.3.1",
     "restler": "^3.4.0",
     "winston": "^2.3.1"
   },
-  "devDependencies": {
-    "inquirer-directory": "^2.1.0",
-    "pluralize": "^5.0.0"
-  }
+  "devDependencies": {}
 }

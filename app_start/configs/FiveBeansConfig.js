@@ -9,18 +9,18 @@ module.exports = class FiveBeansConfig extends AppStartConfig {
   }
 
   _init(appConfig) {
-    const {beanstalkd} = appConfig;
+    const {fivebeans} = appConfig;
 
     /*
       appConfig Prerequisite
 
-      "beanstalkd": {
+      "fivebeans": {
      	  "host": "127.0.0.1",
        	"port": 11300
       },
     */
 
-    FiveBeans.connect(beanstalkd, function (err) {
+    FiveBeans.connect(fivebeans, function (err) {
       if (err) {
         console.warn('Fail to connect to beanstalk server.');
         process.exit(1);
