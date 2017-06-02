@@ -71,11 +71,15 @@ This class provides methods to handle routes
 - service - service that manage majority of the data manipulation and persistence.
 
 `this.a` - Router that handles `api/`.
+
 `this.r` - Router that handles `api/{controllerName}/` (same as renderRoute's router argument).
+
 `this.controllerName` - Variable that represents the controller name in the url path.
+
 `this.m` - Service that was passed into the constructor.
 
 `renderRoute(router: Object): void` - Developers will use this method to declare all their routes using the `router` object passed into the argument. all routes using `router.{verb}({path}, ...` will fall under `api/{controllerName}/{path}`
+
 ```javascript
 router.post('/', (req, res, next) {
 ```
@@ -100,7 +104,9 @@ this.isVerb(req.method, ['PUT', 'POST', 'DELETE'])
 This class extends the ControllerBase and handles the basic CRUD methods based on the Service passed into the constructor
 
 `constructor(app: Object)` - app holds the router that represents `api/`.
+
 `super(app[, controllerName[, service[, middlewares]]])`
+
 - app - app holds the router that represents `api/`
 - controllerName - route url path `api/{route}/`
 - service - service that manage majority of the data manipulation and persistence
@@ -131,24 +137,36 @@ ControllerCrudBase automatically provides the following routes:
 This class provides the basic fields and method required for data manipulation, as well as the current scope of the request
 
 Scope-based variables and methods
+
 `this.t(localeKey: string, args: Array<string>): string` - Function for translating key into current locale
+
 `this.lang` - Variable that displays current locale
+
 `this.context` - The req from route(req, res, next)
+
 `this._model` - The Model injected in the constructor
 
 Data manipulation helpers
+
 `validate(obj: Object): void` - Function that validates the object using indicative. Returns void but throws if invalid validation
+
 `sanitize(obj: Object): Object` - Function that sanitize the object using indicative. Returns mutated obj
+
 `mapper(obj: Object): Object` - Function that changes database object to public view object (DTO)
+
 `mapperReverse(obj: Object): Object` - Function that changes public view object to database object (DTO)
 
 ### ServiceCrudBase
 This class extends the ServiceBase and handles the basic CRUD methods based on the Model passed into the constructor
 
 `create(obj: Object): Object` - Function that creates new data entry.
+
 `getAll(): Array<Object>` - Function that returns all entries.
+
 `getById(_id): Object` - Function that returns entry by _id
+
 `update(_id, obj): Object` - Function that updates entry by _id
+
 `delete(_id): Object` - Function that delete entry by _id
 
 ## Helpers
