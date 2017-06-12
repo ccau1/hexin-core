@@ -19,6 +19,18 @@ module.exports.connect = function (mail) {
   }
 }
 
+module.exports.sendRoute = function (req, res, next) {
+  const {body} = req;
+  this.sendMail(body.from, body.to, body.subject, body.body, body.headers)
+    .then(result => {
+      this.client.close();
+      return res.send(result);
+    })
+    .catch(error => {
+      next(new HandleError({_error: error.message}, 400));
+    });
+}
+
 module.exports.sendMail = function (from, to, subject, body, attachments = []) {
   return new Promise((resolve, reject) => {
     this.client.sendMail({
