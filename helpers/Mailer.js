@@ -18,3 +18,21 @@ module.exports.connect = function (mail) {
     throw new Error('nodemailer:: createTransport failed');
   }
 }
+
+module.exports.sendMail = function (from, to, subject, body, attachments = []) {
+  return new Promise((resolve, reject) => {
+    this.client.sendMail({
+      from,
+      to,
+      subject,
+      html: body,
+      attachments
+    }, (error, info) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(info);
+      }
+    });
+  });
+}
