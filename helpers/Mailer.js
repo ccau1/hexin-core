@@ -1,6 +1,7 @@
 'use strict';
 
 const mailer = require('nodemailer');
+const HandleError = require('./HandleError');
 
 module.exports.client = null;
 
