@@ -9,6 +9,7 @@ const HandleError = require('./HandleError');
 const Locale = require('./Locale');
 const Logger = require('./Logger');
 const Mailer = require('./Mailer');
+const Mapper = require('./Mapper');
 const Plop = require('./Plop');
 const Redis = require('./Redis');
 const Request = require('./Request');
@@ -24,8 +25,9 @@ module.exports = {
   Locale,
   Logger,
   Mailer,
+  Mapper,
   Plop,
   Redis,
   Request,
-  Token,
+  Token
 };

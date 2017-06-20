@@ -23,9 +23,9 @@ module.exports = class ControllerCrudBase extends ControllerBase {
     route.post('/', middlewares, (req, res, next) => {
       co(function* () {
         const {m} = req;
-        const newModelObj = m.mapperReverse(req.body);
+        const newModelObj = m.mapper('model')(req.body);
         const modelObjResult = yield m.create(newModelObj);
-        return res.send(m.mapper(modelObjResult));
+        return res.send(m.mapper()(modelObjResult));
       })
       .catch(error => {
         next(error);
@@ -39,7 +39,7 @@ module.exports = class ControllerCrudBase extends ControllerBase {
       co(function* () {
         const {m} = req;
         const modelObjs = yield m.getAll();
-        return res.send(req.query.full !== undefined ? modelObjs : modelObjs.map(modelObj => m.mapper(modelObj)));
+        return res.send(req.query.full !== undefined ? modelObjs : modelObjs.map(modelObj => m.mapper()(modelObj)));
       })
       .catch(error => {
         next(error);
@@ -53,7 +53,7 @@ module.exports = class ControllerCrudBase extends ControllerBase {
       co(function* () {
         const {m} = req;
         const modelObj = yield m.getById(req.params._id);
-        return res.send(req.query.full !== undefined ? modelObj : m.mapper(modelObj));
+        return res.send(req.query.full !== undefined ? modelObj : m.mapper()(modelObj));
       })
       .catch(error => {
         next(error);
@@ -66,9 +66,9 @@ module.exports = class ControllerCrudBase extends ControllerBase {
     route.put('/:_id', middlewares, (req, res, next) => {
       co(function* () {
         const {m} = req;
-        const modelObj = m.mapperReverse(req.body);
+        const modelObj = m.mapper('model')(req.body);
         const updatedModelObj = yield m.update(req.params._id, modelObj);
-        return res.send(m.mapper(updatedModelObj));
+        return res.send(m.mapper()(updatedModelObj));
       })
       .catch(error => {
         next(error);
@@ -82,7 +82,7 @@ module.exports = class ControllerCrudBase extends ControllerBase {
       co(function* () {
         const {m} = req;
         const deletedModelObj = yield m.delete(req.params._id);
-        return res.send(m.mapper(deletedModelObj));
+        return res.send(m.mapper()(deletedModelObj));
       })
       .catch(error => {
         next(error);

@@ -1,6 +1,7 @@
 'use strict';
 
 const mailer = require('nodemailer');
+const HandleError = require('./HandleError');
 
 module.exports.client = null;
 
@@ -17,4 +18,34 @@ module.exports.connect = function (mail) {
   } else {
     throw new Error('nodemailer:: createTransport failed');
   }
+}
+
+module.exports.sendRoute = function (req, res, next) {
+  const {body} = req;
+  module.exports.sendMail(body.from, body.to, body.subject, body.body, body.headers)
+    .then(result => {
+      module.exports.client.close();
+      return res.send(result);
+    })
+    .catch(error => {
+      next(new HandleError({_error: error.message}, 400));
+    });
+}
+
+module.exports.sendMail = function (from, to, subject, body, attachments = []) {
+  return new Promise((resolve, reject) => {
+    module.exports.client.sendMail({
+      from,
+      to,
+      subject,
+      html: body,
+      attachments
+    }, (error, info) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(info);
+      }
+    });
+  });
 }

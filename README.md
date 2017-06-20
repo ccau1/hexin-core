@@ -36,7 +36,7 @@ setConfig(appConfig) {
     //    port
     appConfig.port = process.env.PORT || 8280;
     //    title of the app
-    appConfig.title = 'WTT API';
+    appConfig.title = 'Website API';
     //    base URL for all routes (ex. /api)
     appConfig.baseUrl = '/api';
 }

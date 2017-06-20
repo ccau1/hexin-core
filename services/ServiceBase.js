@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const indicative = require('indicative');
-const {HandleError} = require('../helpers');
+const {HandleError, Mapper} = require('../helpers');
 
 module.exports = class ServiceBase {
   constructor(context_, model) {
@@ -11,11 +11,35 @@ module.exports = class ServiceBase {
     this.lang = context_.locale.currentLanguage;
     this.context = context_;
     this._model = model;
+    this.mapper = new Mapper(this);
+
+    this._setDefaultMaps();
+  }
+
+  _setDefaultMaps() {
+    this.mapper.addMap()(function (obj) {
+      const {t} = this;
+
+      if (!obj) {
+        throw new HandleError({_error: [t('err_mapping_null_obj')]}, 500);
+      }
+
+      return obj;
+    });
+    this.mapper.addMap('model')(function (obj) {
+      const {t} = this;
+
+      if (!obj) {
+        throw new HandleError({_error: [t('err_mapping_null_obj')]}, 500);
+      }
+
+      return obj;
+    });
   }
 
   validate(obj) {
     const rule = {
-      _id: 'validId',
+      _id: 'validId'
     };
     const message = {
     };
@@ -32,25 +56,5 @@ module.exports = class ServiceBase {
     const sanitizedData = indicative.sanitize(obj, sanitizationRules);
 
     return sanitizedData;
-  }
-
-  mapper(obj) {
-    const {t} = this;
-    if (!obj) {
-      throw new HandleError({_error: [t('err_mapping_null_obj')]}, 500);
-    }
-    const newObj = Object.assign({}, obj);
-
-    return newObj;
-  }
-
-  mapperReverse(obj) {
-    const {t} = this;
-    if (!obj) {
-      throw new HandleError({_error: [t('err_mapping_null_obj')]}, 500);
-    }
-    const newObj = Object.assign({}, obj);
-
-    return newObj;
   }
 };
