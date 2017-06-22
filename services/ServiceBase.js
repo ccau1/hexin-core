@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const indicative = require('indicative');
 const {Mapper} = require('../helpers');
-const {ValidationError, formatIndicativeErrors} = require('../helpers/Error');
+const {ValidationError} = require('../helpers/Error');
 
 module.exports = class ServiceBase {
   constructor(context_, model) {
@@ -64,7 +64,7 @@ module.exports = class ServiceBase {
     };
     return indicative.validateAll(obj, rule, message)
       .catch(errors => {
-        throw new ValidationError(formatIndicativeErrors(errors));
+        throw new ValidationError(errors);
       });
   }
 
