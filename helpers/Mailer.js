@@ -1,7 +1,6 @@
 'use strict';
 
 const mailer = require('nodemailer');
-const HandleError = require('./HandleError');
 
 module.exports.client = null;
 
@@ -28,7 +27,7 @@ module.exports.sendRoute = function (req, res, next) {
       return res.send(result);
     })
     .catch(error => {
-      next(new HandleError({_error: error.message}, 400));
+      next(new Error(error));
     });
 }
 

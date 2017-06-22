@@ -1,9 +1,9 @@
 'use strict';
 
 const _ = require('lodash');
-const {HandleError} = require('../helpers');
 const objectID = require('mongodb').ObjectID;
 const ServiceBase = require('./ServiceBase');
+const {ValidationError} = require('../helpers/Error');
 
 module.exports = class ServiceCrudBase extends ServiceBase {
   /**
@@ -18,11 +18,7 @@ module.exports = class ServiceCrudBase extends ServiceBase {
 
     let newModelObj = new _model(obj);
 
-    try {
-      yield newModelObj.save();
-    } catch (e) {
-      throw new HandleError(e.errors, 400);
-    }
+    yield newModelObj.save();
 
     return newModelObj.toObject();
   }
@@ -46,12 +42,10 @@ module.exports = class ServiceCrudBase extends ServiceBase {
   * getById(_id) {
     const {t, _model} = this;
     if (!objectID.isValid(_id)) {
-      throw new HandleError({_error: [t('err_invalid_id')]}, 400);
+      throw new ValidationError({_error: [t('err_invalid_id')]});
     }
     const modelObj = yield _model.findOne({_id: _id}).lean();
-    if (!modelObj) {
-      throw new HandleError({_error: [t('err_not_found', [_model.modelName])]}, 400);
-    }
+
     return modelObj;
   }
 
@@ -63,14 +57,14 @@ module.exports = class ServiceCrudBase extends ServiceBase {
   * update(_id, obj) {
     const {validate, sanitize, t, _model} = this;
     if (obj._id !== _id) {
-      throw new HandleError({_error: [t('err_id_not_match')]}, 400);
+      throw new ValidationError(t('err_id_not_match'));
     }
     yield validate(obj);
     obj = sanitize(obj);
     try {
       yield _model.update({_id: _id}, {$set: obj});
     } catch (e) {
-      throw new HandleError(e.errors, 400);
+      throw new ValidationError(e.errors);
     }
     return obj;
   }
@@ -84,7 +78,7 @@ module.exports = class ServiceCrudBase extends ServiceBase {
 
     let deletedObj = yield _model.findByIdAndRemove(_id);
     if (!deletedObj) {
-      throw new HandleError({_error: [t('err_not_found', [_model.modelName])]}, 400);
+      throw new ValidationError(t('err_not_found', [_model.modelName]));
     }
 
     return deletedObj.toObject();

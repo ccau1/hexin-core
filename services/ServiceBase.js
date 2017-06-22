@@ -2,7 +2,8 @@
 
 const _ = require('lodash');
 const indicative = require('indicative');
-const {HandleError, Mapper} = require('../helpers');
+const {Mapper} = require('../helpers');
+const {ValidationError, formatIndicativeErrors} = require('../helpers/Error');
 
 module.exports = class ServiceBase {
   constructor(context_, model) {
@@ -17,20 +18,38 @@ module.exports = class ServiceBase {
   }
 
   _setDefaultMaps() {
-    this.mapper.addMap()(function (obj) {
+    this.mapper.setMap()(function (obj) {
       const {t} = this;
 
       if (!obj) {
-        throw new HandleError({_error: [t('err_mapping_null_obj')]}, 500);
+        throw new ValidationError(t('err_mapping_null_obj'));
       }
 
       return obj;
     });
-    this.mapper.addMap('model')(function (obj) {
+    this.mapper.setMap('full')(function (obj) {
       const {t} = this;
 
       if (!obj) {
-        throw new HandleError({_error: [t('err_mapping_null_obj')]}, 500);
+        throw new ValidationError(t('err_mapping_null_obj'));
+      }
+
+      return obj;
+    });
+    this.mapper.setMap('list')(function (obj) {
+      const {t} = this;
+
+      if (!obj) {
+        throw new ValidationError(t('err_mapping_null_obj'));
+      }
+
+      return obj;
+    });
+    this.mapper.setMap('model')(function (obj) {
+      const {t} = this;
+
+      if (!obj) {
+        throw new ValidationError(t('err_mapping_null_obj'));
       }
 
       return obj;
@@ -45,7 +64,7 @@ module.exports = class ServiceBase {
     };
     return indicative.validateAll(obj, rule, message)
       .catch(errors => {
-        throw new HandleError(HandleError.formatIndicativeErrors(errors), 400);
+        throw new ValidationError(formatIndicativeErrors(errors));
       });
   }
 

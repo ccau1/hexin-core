@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require('express');
-const HandleError = require('../helpers/HandleError');
 
 module.exports = class AppStart {
   static get HANDLE_LIST_BEGINNING() { return true; }
@@ -40,11 +39,11 @@ module.exports = class AppStart {
   }
 
   setConfig(appConfig) {
-    throw new HandleError({message: 'AppStart must override setConfig(appConfig)'});
+    throw new ReferenceError('AppStart must override setConfig(appConfig)');
   }
 
   setHandlers(appConfig) {
-    throw new HandleError({message: 'AppStart must override setHandler(appConfig)'});
+    throw new ReferenceError('AppStart must override setHandler(appConfig)');
   }
 
   handle(handle, addToBeginning = false) {
