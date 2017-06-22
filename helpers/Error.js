@@ -10,7 +10,17 @@ HttpResponseError.prototype.constructor = HttpResponseError;
 function ValidationError(message) {
   this.name = 'ValidationError';
   this.status = HttpStatusCode.BAD_REQUEST;
-  this.message = typeof message === 'string' ? {_error: [message]} : message;
+  if (Array.isArray(message)) {
+    this.message = {};
+    errors.forEach(err => {
+      message[err.field] = err.message;
+    });
+  } else if (typeof message === 'string') {
+    this.message = {_error: [message]};
+  } else {
+    this.message = message;
+  }
+
   this.stack = (new Error()).stack;
 }
 ValidationError.prototype = Object.create(Error.prototype);
@@ -40,14 +50,6 @@ const HttpStatusCode = {
   BAD_GATEWAY: 502
 }
 
-const formatIndicativeErrors = (errors) => {
-  let returnErrors = {};
-  errors.forEach(err => {
-    returnErrors[err.field] = err.message;
-  });
-  return returnErrors;
-};
-
 // module.exports.ErrorMsg = {
 //   OK: new ErrorMsgClass('OK', 200),
 //   CREATED: new ErrorMsgClass('CREATED', 201),
@@ -74,7 +76,6 @@ module.exports = {
     global.HttpStatusCode = HttpStatusCode;
   }
 };
-module.exports.formatIndicativeErrors = formatIndicativeErrors;
 module.exports.HttpResponseError = HttpResponseError;
 module.exports.ValidationError = ValidationError;
 module.exports.HttpStatusCode = HttpStatusCode;
