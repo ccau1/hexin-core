@@ -1,8 +1,6 @@
 'use strict';
 
 const restler = require('restler');
-const HandleError = require('./HandleError');
-// const options = require('./options');
 
 const Request = module.exports = class Request {
   constructor(req, url, opt) {
@@ -59,7 +57,7 @@ module.exports.fetch = (req, url, opt) => {
     .on('complete', (result, response) => {
       if (result instanceof Error) {
         if (result.code === 'ECONNREFUSED') {
-          return reject(new HandleError({_error: ['Service Unavailable']}, 503));
+          return reject(new Error('Service Unavailable'));
         }
         return reject(result);
       }
@@ -70,10 +68,10 @@ module.exports.fetch = (req, url, opt) => {
       return resolve(response);
     })
     .on('abort', () => {
-      return reject(new HandleError({_error: ['abort']}));
+      return reject(new Error('request::abort'));
     })
     .on('timeout', (ms) => {
-      return reject(new HandleError({_error: ['timeout']}, 408));
+      return reject(new Error('request::timeout'));
     });
   });
 };

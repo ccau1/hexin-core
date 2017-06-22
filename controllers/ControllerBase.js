@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const yields = require('express-yields');
 
 
 module.exports = class ControllerBase {

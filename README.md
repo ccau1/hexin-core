@@ -19,7 +19,7 @@ Table of contents
     * [Database](#database)
     * [BrainTree](#braintree)
     * [FiveBeans](#fivebeans)
-    * [HandleError](#handleerror)
+    * [Error](#error)
     * [Locale](#locale)
     * [Logger](#logger)
     * [Redis](#redis)
@@ -148,15 +148,13 @@ This class provides the basic fields and method required for data manipulation, 
 
 `this._model` - The Model injected in the constructor
 
+`this.mapper` - An object that handles DTO transformation
+
 #### Data manipulation helpers
 
 `validate(obj: Object): void` - Function that validates the object using indicative. Returns void but throws if invalid validation
 
 `sanitize(obj: Object): Object` - Function that sanitize the object using indicative. Returns mutated obj
-
-`mapper(obj: Object): Object` - Function that changes database object to public view object (DTO)
-
-`mapperReverse(obj: Object): Object` - Function that changes public view object to database object (DTO)
 
 ### ServiceCrudBase
 This class extends the ServiceBase and handles the basic CRUD methods based on the Model passed into the constructor
@@ -171,6 +169,21 @@ This class extends the ServiceBase and handles the basic CRUD methods based on t
 
 `delete(_id): Object` - Function that delete entry by _id
 
+### Mapper
+
+Mapper handles the transition between client object to model object and vice versa. Since service is only responsible for handling model data, we use this function to handle the difference in model data and client-side data inside the controller layer. Mapper will be called on every controller method to mitigate the data being received and sent out.
+
+Usage:
+```javascript
+this.mapper.setMap(‘to’[, ‘from’])(function (obj) {
+    // mutate here
+    return obj;
+});
+
+this.mapper(‘to’[, ‘from’])(obj);
+```
+to is a name you give to what you want it to transform into (default to 'default'). from is optional, and would be safe to assume it is a model object unless to is 'model' (in which case from is 'default' client-side object)
+
 ## Helpers
 
 ### Plop
@@ -181,7 +194,7 @@ This class extends the ServiceBase and handles the basic CRUD methods based on t
 (Documentation coming soon)
 ### FiveBeans
 (Documentation coming soon)
-### HandleError
+### Error
 (Documentation coming soon)
 ### Locale
 (Documentation coming soon)

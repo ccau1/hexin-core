@@ -5,7 +5,7 @@ const BrainTree = require('./BrainTree');
 const Config = require('./Config');
 const Database = require('./Database');
 const FiveBeans = require('./FiveBeans');
-const HandleError = require('./HandleError');
+const Error = require('./Error');
 const Locale = require('./Locale');
 const Logger = require('./Logger');
 const Mailer = require('./Mailer');
@@ -21,7 +21,7 @@ module.exports = {
   Config,
   Database,
   FiveBeans,
-  HandleError,
+  Error,
   Locale,
   Logger,
   Mailer,

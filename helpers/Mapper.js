@@ -41,7 +41,7 @@ module.exports = class Mapper {
       };
     }.bind(this);
 
-    this.addMap = function (to = 'default', from = '') {
+    this.setMap = function (to = 'default', from = '') {
       const me = this;
       return function (fn) {
         me.mapList[to + '_' + from] = fn.bind(ctxt);
@@ -52,7 +52,7 @@ module.exports = class Mapper {
     MapInstance.mapList = this.mapList;
 
     MapInstance.map = this.map;
-    MapInstance.addMap = this.addMap;
+    MapInstance.setMap = this.setMap;
 
     return MapInstance;
   }
