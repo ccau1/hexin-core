@@ -12,8 +12,8 @@ function ValidationError(message) {
   this.status = HttpStatusCode.BAD_REQUEST;
   if (Array.isArray(message)) {
     this.message = {};
-    errors.forEach(err => {
-      message[err.field] = err.message;
+    message.forEach(err => {
+      this.message[err.field] = err.message;
     });
   } else if (typeof message === 'string') {
     this.message = {_error: [message]};

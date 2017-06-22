@@ -61,12 +61,9 @@ module.exports = class ServiceCrudBase extends ServiceBase {
     }
     yield validate(obj);
     obj = sanitize(obj);
-    try {
-      yield _model.update({_id: _id}, {$set: obj});
-    } catch (e) {
-      throw new ValidationError(e.errors);
-    }
-    return obj;
+
+    const newObj = yield _model.findByIdAndUpdate(_id, obj, {new: true});
+    return newObj;
   }
 
   /**
