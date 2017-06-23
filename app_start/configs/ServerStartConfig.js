@@ -1,6 +1,6 @@
 'use strict';
 
-const {AppStartConfig} = require('hexin-core');
+const AppStartConfig = require('../AppStartConfig');
 
 module.exports = class ServerStartConfig extends AppStartConfig {
   init() {

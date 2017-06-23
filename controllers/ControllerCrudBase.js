@@ -21,10 +21,10 @@ module.exports = class ControllerCrudBase extends ControllerBase {
     /**
      * Create payment
      */
-    route.post('/', middlewares, function* (req, res, next) {
+    route.post('/', middlewares, async (req, res, next) => {
       const {m} = req;
       const newModelObj = m.mapper('model')(req.body);
-      const modelObjResult = yield m.create(newModelObj);
+      const modelObjResult = await m.create(newModelObj);
 
       return res.send(m.mapper()(modelObjResult));
     });
@@ -32,9 +32,9 @@ module.exports = class ControllerCrudBase extends ControllerBase {
     /**
      * Get payments
      */
-    route.get('/', middlewares, function* (req, res, next) {
+    route.get('/', middlewares, async (req, res, next) => {
       const {m} = req;
-      const modelObjs = yield m.getAll();
+      const modelObjs = await m.getAll();
 
       if (req.query.full !== undefined) {
         return res.send(modelObjs.map(modelObj => m.mapper('full')(modelObj)));
@@ -48,9 +48,9 @@ module.exports = class ControllerCrudBase extends ControllerBase {
     /**
      * Get payment by ID
      */
-    route.get('/:_id/', middlewares, function* (req, res, next) {
+    route.get('/:_id/', middlewares, async (req, res, next) => {
       const {m} = req;
-      const modelObj = yield m.getById(req.params._id);
+      const modelObj = await m.getById(req.params._id);
 
       if (!modelObj) {
         throw new HttpResponseError(HttpStatusCode.NOT_FOUND);
@@ -62,10 +62,10 @@ module.exports = class ControllerCrudBase extends ControllerBase {
     /**
      * Update payment
      */
-    route.put('/:_id', middlewares, function* (req, res, next) {
+    route.put('/:_id', middlewares, async (req, res, next) => {
       const {m} = req;
       const modelObj = m.mapper('model')(req.body);
-      const updatedModelObj = yield m.update(req.params._id, modelObj);
+      const updatedModelObj = await m.update(req.params._id, modelObj);
 
       if (!updatedModelObj) {
         throw new HttpResponseError(HttpStatusCode.NOT_FOUND);
@@ -77,9 +77,9 @@ module.exports = class ControllerCrudBase extends ControllerBase {
     /**
      * Remove payment
      */
-    route.delete('/:_id', middlewares, function* (req, res, next) {
+    route.delete('/:_id', middlewares, async (req, res, next) => {
       const {m} = req;
-      const deletedModelObj = yield m.delete(req.params._id);
+      const deletedModelObj = await m.delete(req.params._id);
 
       if (!deletedModelObj) {
         throw new HttpResponseError(HttpStatusCode.NOT_FOUND);

@@ -10,15 +10,15 @@ module.exports = class ServiceCrudBase extends ServiceBase {
    * Create payment
    * @param payment - {object}  payment object
    */
-  * create(obj) {
+  async create(obj) {
     const {validate, sanitize, _model} = this;
 
-    yield validate(obj);
+    await validate(obj);
     obj = sanitize(obj);
 
     let newModelObj = new _model(obj);
 
-    yield newModelObj.save();
+    await newModelObj.save();
 
     return newModelObj.toObject();
   }
@@ -26,10 +26,10 @@ module.exports = class ServiceCrudBase extends ServiceBase {
   /**
    * Get All payments
    */
-  * getAll() {
+  async getAll() {
     const {_model} = this;
 
-    const objs = yield _model.find({}).lean();
+    const objs = await _model.find({}).lean();
 
     return objs;
   }
@@ -39,12 +39,12 @@ module.exports = class ServiceCrudBase extends ServiceBase {
    * @param _id - {object}  id of payment
    */
 
-  * getById(_id) {
+  async getById(_id) {
     const {t, _model} = this;
     if (!objectID.isValid(_id)) {
       throw new ValidationError({_error: [t('err_invalid_id')]});
     }
-    const modelObj = yield _model.findOne({_id: _id}).lean();
+    const modelObj = await _model.findOne({_id: _id}).lean();
 
     return modelObj;
   }
@@ -54,15 +54,15 @@ module.exports = class ServiceCrudBase extends ServiceBase {
    * @param _id - {object}  id of payment
    * @param payment - {object}  payment object
    */
-  * update(_id, obj) {
+  async update(_id, obj) {
     const {validate, sanitize, t, _model} = this;
     if (obj._id !== _id) {
       throw new ValidationError(t('err_id_not_match'));
     }
-    yield validate(obj);
+    await validate(obj);
     obj = sanitize(obj);
 
-    const newObj = yield _model.findByIdAndUpdate(_id, obj, {new: true});
+    const newObj = await _model.findByIdAndUpdate(_id, obj, {new: true});
     return newObj;
   }
 
@@ -70,10 +70,10 @@ module.exports = class ServiceCrudBase extends ServiceBase {
    * delete payment
    * @param _id - {object}  id of payment
    */
-  * delete(_id) {
+  async delete(_id) {
     const {t, _model} = this;
 
-    let deletedObj = yield _model.findByIdAndRemove(_id);
+    let deletedObj = await _model.findByIdAndRemove(_id);
     if (!deletedObj) {
       throw new ValidationError(t('err_not_found', [_model.modelName]));
     }

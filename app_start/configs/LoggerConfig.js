@@ -1,6 +1,7 @@
 'use strict';
 
-const {AppStartConfig, Logger} = require('hexin-core');
+const Logger = require('../../helpers/Logger');
+const AppStartConfig = require('../AppStartConfig');
 
 module.exports = class LoggerConfig extends AppStartConfig {
   init() {

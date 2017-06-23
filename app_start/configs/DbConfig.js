@@ -2,7 +2,6 @@
 
 const AppStartConfig = require('../AppStartConfig');
 const Database = require('../../helpers/Database');
-const {AppStartConfig, Database} = require('hexin-core');
 
 module.exports = class DbConfig extends AppStartConfig {
   preInit(appConfig) {
