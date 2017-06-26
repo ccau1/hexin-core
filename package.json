@@ -1,5 +1,5 @@
 {
-  "version": "0.1.38",
+  "version": "0.1.41",
   "name": "hexin-core",
   "description": "Hexin Framework's core library",
   "author": "ccau1",
@@ -20,7 +20,7 @@
     "mongoose": "^4.9.9",
     "mongoose-auto-increment": "^5.0.1",
     "mongoose-long": "^0.1.1",
-    "mysql": "^2.13.0",
+    "mysql2": "^1.3.5",
     "nodemailer": "^4.0.1",
     "path": "^0.12.7",
     "pluralize": "^5.0.0",

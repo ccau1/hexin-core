@@ -1,6 +1,6 @@
 'use strict';
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 module.exports = (configs) => {
   const connection = mysql.createConnection(configs);

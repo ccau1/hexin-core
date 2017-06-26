@@ -6,12 +6,12 @@ const {Mapper} = require('../helpers');
 const {ValidationError} = require('../helpers/Error');
 
 module.exports = class ServiceBase {
-  constructor(context_, model) {
+  constructor(context_, repo) {
     // extract context into service variables
     this.t = context_.locale.t;
     this.lang = context_.locale.currentLanguage;
     this.context = context_;
-    this._model = model;
+    this._repo = repo;
     this.mapper = new Mapper(this);
 
     this._setDefaultMaps();

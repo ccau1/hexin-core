@@ -11,25 +11,25 @@ module.exports = class ServiceCrudBase extends ServiceBase {
    * @param payment - {object}  payment object
    */
   async create(obj) {
-    const {validate, sanitize, _model} = this;
+    const {validate, sanitize, _repo} = this;
 
     await validate(obj);
     obj = sanitize(obj);
 
-    let newModelObj = new _model(obj);
+    const newObj = await _repo.create(obj);
 
-    await newModelObj.save();
+    await _repo.commit();
 
-    return newModelObj.toObject();
+    return newObj;
   }
 
   /**
    * Get All payments
    */
   async getAll() {
-    const {_model} = this;
+    const {_repo} = this;
 
-    const objs = await _model.find({}).lean();
+    const objs = await _repo.find({});
 
     return objs;
   }
@@ -40,11 +40,11 @@ module.exports = class ServiceCrudBase extends ServiceBase {
    */
 
   async getById(_id) {
-    const {t, _model} = this;
+    const {t, _repo} = this;
     if (!objectID.isValid(_id)) {
       throw new ValidationError({_error: [t('err_invalid_id')]});
     }
-    const modelObj = await _model.findOne({_id: _id}).lean();
+    const modelObj = await _repo.findById(_id);
 
     return modelObj;
   }
@@ -55,14 +55,14 @@ module.exports = class ServiceCrudBase extends ServiceBase {
    * @param payment - {object}  payment object
    */
   async update(_id, obj) {
-    const {validate, sanitize, t, _model} = this;
+    const {validate, sanitize, t, _repo} = this;
     if (obj._id !== _id) {
       throw new ValidationError(t('err_id_not_match'));
     }
     await validate(obj);
     obj = sanitize(obj);
 
-    const newObj = await _model.findByIdAndUpdate(_id, obj, {new: true});
+    const newObj = await _repo.updateById(_id, obj);
     return newObj;
   }
 
@@ -71,13 +71,13 @@ module.exports = class ServiceCrudBase extends ServiceBase {
    * @param _id - {object}  id of payment
    */
   async delete(_id) {
-    const {t, _model} = this;
+    const {t, _repo} = this;
 
-    let deletedObj = await _model.findByIdAndRemove(_id);
+    let deletedObj = await _repo.deleteById(_id);
     if (!deletedObj) {
-      throw new ValidationError(t('err_not_found', [_model.modelName]));
+      throw new ValidationError(t('err_not_found', [_repo.modelName]));
     }
 
-    return deletedObj.toObject();
+    return deletedObj;
   }
 };
