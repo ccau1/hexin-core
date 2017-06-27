@@ -6,14 +6,23 @@ class MongoGenericRepository extends iRepository {
   constructor(connection, model) {
     super();
     this._model = model;
+    this.modelName = model.modelName;
     this._connection = connection;
     this._transaction = null;
   }
 
   async handleCall(call) {
     return call
+      .then(result => {
+        if (result.toObject) {
+          result = result.toObject();
+        } else if (result._doc) {
+          result = result._doc;
+        }
+        return result;
+      })
       .catch(err => {
-        throw new Error(err);
+        throw err;
       });
   }
 
@@ -27,25 +36,25 @@ class MongoGenericRepository extends iRepository {
     return this.handleCall(this._model.findById(id).lean());
   }
   async create(modelObj) {
-    return this.handleCall(this._model.create(modelObj));
+    return await this.handleCall(this._model.create(modelObj));
   }
   async update(query, modelObj) {
-    return this.handleCall(this._model.update(query, {$set: modelObj}));
+    return await this.handleCall(this._model.update(query, {$set: modelObj}));
   }
   async updateOne(query, modelObj) {
-    return this.handleCall(this._model.findOneAndUpdate(query, {$set: modelObj}, {new: true}));
+    return await this.handleCall(this._model.findOneAndUpdate(query, {$set: modelObj}, {new: true}));
   }
   async updateById(id, modelObj) {
-    return this.handleCall(this._model.findByIdAndUpdate(id, {$set: modelObj}));
+    return await this.handleCall(this._model.findByIdAndUpdate(id, {$set: modelObj}, {new: true}));
   }
   async delete(query) {
     return await this.handleCall(this._model.remove(query));
   }
   async deleteOne(query) {
-    return await this.handleCall(this._model.findOneAndRemove(query).toObject());
+    return await this.handleCall(this._model.findOneAndRemove(query));
   }
   async deleteById(id) {
-    return await this.handleCall(this._model.findByIdAndRemove(id).toObject());
+    return await this.handleCall(this._model.findByIdAndRemove(id));
   }
   async startTransaction() {
     return await {};

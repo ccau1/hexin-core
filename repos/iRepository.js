@@ -1,6 +1,10 @@
 'use strict';
 
 class RepositoryInterface {
+  constructor() {
+    this.modelName = '_Model';
+  }
+
   // Return: obj array
   async find(query) {
     throw new Error('Repo method \'find(query)\' needs to be implemented');
