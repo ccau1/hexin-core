@@ -11,14 +11,13 @@ module.exports = class ServiceCrudBase extends ServiceBase {
    * @param payment - {object}  payment object
    */
   async create(obj) {
-    const {validate, sanitize, _repo} = this;
+    const {validate, sanitize, _repo, unitOfWork} = this;
 
     await validate(obj);
     obj = sanitize(obj);
 
     const newObj = await _repo.create(obj);
-
-    await _repo.commit();
+    await unitOfWork.commit();
 
     return newObj;
   }
@@ -63,6 +62,8 @@ module.exports = class ServiceCrudBase extends ServiceBase {
     obj = sanitize(obj);
 
     const newObj = await _repo.updateById(_id, obj);
+    await unitOfWork.commit();
+
     return newObj;
   }
 
@@ -77,6 +78,7 @@ module.exports = class ServiceCrudBase extends ServiceBase {
     if (!deletedObj) {
       throw new ValidationError(t('err_not_found', [_repo.modelName]));
     }
+    await unitOfWork.commit();
 
     return deletedObj;
   }

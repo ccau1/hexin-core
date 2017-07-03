@@ -3,12 +3,11 @@
 module.exports = class AppStartConfig {
   constructor(appConfig) {
     this.appConfig = appConfig;
-    this.preInit(appConfig);
   }
 
-  preInit(appConfig) { }
+  preInit(next, appConfig) { next(); }
 
-  init(appConfig) { }
+  init(next, appConfig) { next(); }
 
-  postInit(appConfig) { }
+  postInit(next, appConfig) { next(); }
 };

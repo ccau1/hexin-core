@@ -3,18 +3,19 @@
 const iRepository = require('./iRepository');
 
 class MongoGenericRepository extends iRepository {
-  constructor(connection, model) {
+  constructor(model, context) {
     super();
     this._model = model;
     this.modelName = model.modelName;
-    this._connection = connection;
-    this._transaction = null;
+    this._context = context;
   }
 
   async handleCall(call) {
     return call
       .then(result => {
-        if (result.toObject) {
+        if (!result) {
+          return result;
+        } else if (result.toObject) {
           result = result.toObject();
         } else if (result._doc) {
           result = result._doc;
@@ -27,13 +28,13 @@ class MongoGenericRepository extends iRepository {
   }
 
   async find(query) {
-    return this.handleCall(this._model.find(query).lean());
+    return await this.handleCall(this._model.find(query).lean());
   }
   async findOne(query) {
     return await this.handleCall(this._model.findOne(query).lean());
   }
   async findById(id) {
-    return this.handleCall(this._model.findById(id).lean());
+    return await this.handleCall(this._model.findById(id).lean());
   }
   async create(modelObj) {
     return await this.handleCall(this._model.create(modelObj));
@@ -56,11 +57,8 @@ class MongoGenericRepository extends iRepository {
   async deleteById(id) {
     return await this.handleCall(this._model.findByIdAndRemove(id));
   }
-  async startTransaction() {
-    return await {};
-  }
   async commit() {
-    return await {};
+    return true;
   }
 }
 

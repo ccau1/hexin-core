@@ -11,6 +11,7 @@ module.exports = class ServiceBase {
     this.t = context_.locale.t;
     this.lang = context_.locale.currentLanguage;
     this.context = context_;
+    this.unitOfWork = context_.unitOfWork;
     this._repo = repo;
     this.mapper = new Mapper(this);
 

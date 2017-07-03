@@ -6,10 +6,11 @@ const MongooseError = require('mongoose/lib/error');
 const MongoError = require('mongodb-core').MongoError;
 
 module.exports = class ErrorsConfig extends AppStartConfig {
-  init() {
+  init(next) {
     const {router} = this.appConfig;
     Err.setGlobal();
     router.use(this.middleware.bind(this));
+    next();
   }
 
   middleware(error, req, res, next) {

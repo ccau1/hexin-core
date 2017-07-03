@@ -2,9 +2,9 @@
 
 module.exports.connection = {};
 
-module.exports.init = (name, config) => {
+module.exports.init = async (name, config) => {
   const connection = module.exports.connection;
-  connection[name] = require('./engines/' + config.engine)(config.connection);
+  connection[name] = await require('./engines/' + config.engine)(config.connection);
   if (!connection.default || config.default) {
     connection.default = connection[name];
   }

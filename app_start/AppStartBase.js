@@ -54,12 +54,22 @@ module.exports = class AppStart {
     }
   }
 
-  init() {
-    this.handleList.forEach(handle => {
-      handle.init(this.appConfig);
-    });
-    this.handleList.forEach(handle => {
-      handle.postInit(this.appConfig);
+  async init() {
+    await this.doInit(this.appConfig, 'preInit');
+    await this.doInit(this.appConfig, 'init');
+    await this.doInit(this.appConfig, 'postInit');
+  }
+
+  async doInit(appConfig, methodName, index = 0) {
+    if (!this.handleList[index]) {
+      return true;
+    }
+
+    return new Promise((resolve, reject) => {
+      this.handleList[index][methodName](async () => {
+        await this.doInit(appConfig, methodName, ++index);
+        resolve();
+      }, appConfig);
     });
   }
 };

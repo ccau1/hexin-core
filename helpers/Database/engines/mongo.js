@@ -11,7 +11,7 @@ const autoIncrement = require('mongoose-auto-increment');
  * @param configs.replicaSet		replicaSet option (if any)
  * @param configs.database		    database name
  */
-module.exports = (configs) => {
+module.exports = async (configs) => {
   let options = {};
   // support replicaSet
   if (configs.replicaSet) {
@@ -109,5 +109,5 @@ module.exports = (configs) => {
   mongoose.autoIncrement = autoIncrement;
   mongoose.Promise = global.Promise;
 
-  return mongoose;
+  return await mongoose;
 };

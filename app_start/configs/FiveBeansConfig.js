@@ -4,8 +4,8 @@ const AppStartConfig = require('../AppStartConfig');
 const FiveBeans = require('../../helpers/FiveBeans');
 
 module.exports = class FiveBeansConfig extends AppStartConfig {
-  init(appConfig) {
-    this._init(appConfig);
+  init(next, appConfig) {
+    this._init(next, appConfig);
   }
 
   _init(appConfig) {
@@ -25,8 +25,9 @@ module.exports = class FiveBeansConfig extends AppStartConfig {
         console.warn('Fail to connect to beanstalk server.');
         process.exit(1);
       }
+      next();
     });
   }
-  _preInit(appConfig) { }
-  _postInit(appConfig) { }
+  _preInit(next, appConfig) { }
+  _postInit(next, appConfig) { }
 };

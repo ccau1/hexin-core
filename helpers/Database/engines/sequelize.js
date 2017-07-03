@@ -9,7 +9,7 @@ const Sequelize = require('sequelize');
  * @param configs.replicaSet		replicaSet option (if any)
  * @param configs.database		    database name
  */
-module.exports = (configs) => {
+module.exports = async (configs) => {
 
   const sequelize = new Sequelize(configs.database, configs.user, configs.pass, configs.configs);
 
@@ -22,5 +22,5 @@ module.exports = (configs) => {
       console.error('Unable to connect to the database:', err);
     });
 
-  return sequelize;
+  return await sequelize;
 };

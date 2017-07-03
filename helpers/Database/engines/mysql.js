@@ -2,7 +2,7 @@
 
 const mysql = require('mysql2');
 
-module.exports = (configs) => {
+module.exports = async (configs) => {
   const connection = mysql.createConnection(configs);
 
   connection.connect();
@@ -12,5 +12,5 @@ module.exports = (configs) => {
   });
   connection.end();
 
-  return connection;
+  return await connection;
 };
