@@ -4,10 +4,6 @@ const AppStartConfig = require('../AppStartConfig');
 const Mailer = require('../../helpers/Mailer');
 
 module.exports = class MailerConfig extends AppStartConfig {
-  init(next, appConfig) {
-    this._init(next, appConfig);
-  }
-
   _init(next, appConfig) {
     const {mail} = appConfig;
 

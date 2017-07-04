@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const indicative = require('indicative');
 const {Mapper} = require('../helpers');
 const {ValidationError} = require('../helpers/Error');

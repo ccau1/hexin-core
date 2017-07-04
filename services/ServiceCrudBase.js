@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const objectID = require('mongodb').ObjectID;
 const ServiceBase = require('./ServiceBase');
 const {ValidationError} = require('../helpers/Error');

@@ -3,7 +3,7 @@
 const AppStartConfig = require('../AppStartConfig');
 
 module.exports = class RouterConfig extends AppStartConfig {
-  init(next) {
+  _init(next) {
     const {app, router, baseUrl} = this.appConfig;
 
     // Register all our routes with /api

@@ -4,7 +4,7 @@ const AppStartConfig = require('../AppStartConfig');
 const Database = require('../../helpers/Database');
 
 module.exports = class DbConfig extends AppStartConfig {
-  preInit(next, appConfig) {
+  _preInit(next, appConfig) {
     const appDbNames = Object.keys(appConfig.db);
 
     const databaseInitCall = function(index = 0) {

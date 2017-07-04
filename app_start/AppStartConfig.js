@@ -5,9 +5,14 @@ module.exports = class AppStartConfig {
     this.appConfig = appConfig;
   }
 
-  preInit(next, appConfig) { next(); }
+  preInit(next, appConfig) { this._preInit(next, appConfig); }
 
-  init(next, appConfig) { next(); }
+  init(next, appConfig) { this._init(next, appConfig); }
 
-  postInit(next, appConfig) { next(); }
+  postInit(next, appConfig) { this._postInit(next, appConfig); }
+
+  // for core predefined calls
+  _preInit(next, appConfig) { next(); }
+  _init(next, appConfig) { next(); }
+  _postInit(next, appConfig) { next(); }
 };
