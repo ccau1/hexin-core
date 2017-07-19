@@ -57,8 +57,18 @@ module.exports = class ErrorsConfig extends AppStartConfig {
     } else if (error instanceof MongooseError) {
       if (error.name === 'CastError') {
         errorObj.status = 400;
+      } else if (error.name === 'ValidationError') {
+        errorObj.status = 400;
       }
-      errorObj.message = {[error.path]: error.message};
+
+      if (error.errors) {
+        errorObj.message = {};
+        Object.keys(error.errors).forEach(errorPath => {
+          errorObj.message[errorPath] = error.errors[errorPath].message;
+        });
+      } else {
+        errorObj.message = error.path ? {[error.path]: error.message} || {_error: [error.message]};
+      }
     }
   }
 };
