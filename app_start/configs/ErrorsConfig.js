@@ -66,8 +66,10 @@ module.exports = class ErrorsConfig extends AppStartConfig {
         Object.keys(error.errors).forEach(errorPath => {
           errorObj.message[errorPath] = error.errors[errorPath].message;
         });
+      } else if (error.path) {
+        errorObj.message = {[error.path]: error.message};
       } else {
-        errorObj.message = error.path ? {[error.path]: error.message} || {_error: [error.message]};
+        errorObj.message = {_error: [error.message]};
       }
     }
   }
