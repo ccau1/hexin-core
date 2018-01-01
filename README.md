@@ -1,5 +1,5 @@
-# HEXIN Framework Core Library
-A list of core libraries for the HEXIN node framework
+# HTTPeace Node Framework Core Library
+A list of core libraries for the HTTPeace node framework
 
 
 Table of contents

@@ -1,0 +1,7 @@
+{
+  "postTypes": {
+    "news": "最新消息",
+    "promotions": "最新推廣",
+    "others": "其他"
+  }
+}

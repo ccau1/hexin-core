@@ -3,10 +3,9 @@ const controller = require('./controller');
 const model = require('./model');
 const service = require('./service');
 
-
 module.exports = {
-  app_start,
-  controller,
-  model,
-  service,
+	app_start,
+	controller,
+	model,
+	service
 };

@@ -30,30 +30,30 @@
 */
 
 module.exports = class Mapper {
-  constructor(ctxt) {
-    this.context = ctxt;
-    this.mapList = {};
+	constructor(ctxt) {
+		this.context = ctxt;
+		this.mapList = {};
 
-    this.map = function (to = 'default', from = '') {
-      const me = this;
-      return function (obj) {
-        return me.mapList[to + '_' + from](obj);
-      };
-    }.bind(this);
+		this.map = function(to = 'default', from = '') {
+			const me = this;
+			return function(obj) {
+				return me.mapList[to + '_' + from](obj);
+			};
+		}.bind(this);
 
-    this.setMap = function (to = 'default', from = '') {
-      const me = this;
-      return function (fn) {
-        me.mapList[to + '_' + from] = fn.bind(ctxt);
-      };
-    }.bind(this);
+		this.setMap = function(to = 'default', from = '') {
+			const me = this;
+			return function(fn) {
+				me.mapList[to + '_' + from] = fn.bind(ctxt);
+			};
+		}.bind(this);
 
-    let MapInstance = this.map;
-    MapInstance.mapList = this.mapList;
+		let MapInstance = this.map;
+		MapInstance.mapList = this.mapList;
 
-    MapInstance.map = this.map;
-    MapInstance.setMap = this.setMap;
+		MapInstance.map = this.map;
+		MapInstance.setMap = this.setMap;
 
-    return MapInstance;
-  }
+		return MapInstance;
+	}
 };

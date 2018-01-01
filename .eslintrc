@@ -1,0 +1,25 @@
+{
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "plugins": ["prettier", "react"],
+  "rules": {
+    "prettier/prettier": ["error"],
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off",
+    "no-restricted-globals": "off",
+    "no-plusplus": "off",
+    "no-param-reassign": "off",
+    "global-require": "off",
+    "no-unused-vars": "off",
+    "func-names": "off",
+    "no-console": ["warn", { "allow": ["info", "warn", "error"] }]
+  },
+  "globals": {
+    "ValidationError": true,
+    "HttpResponseError": true,
+    "HttpStatusCode": true,
+    "describe": true,
+    "it": true,
+    "beforeEach": true,
+    "afterEach": true
+  }
+}

@@ -5,20 +5,22 @@ module.exports.prompts = [
     type: 'input',
     name: 'name',
     message: 'Service name',
-    validate: function (value) {
-      if ((/.+/).test(value)) { return true; }
+    validate: function(value) {
+      if (/.+/.test(value)) {
+        return true;
+      }
       return 'name is required';
-    },
+    }
   },
   {
     type: 'confirm',
     name: 'wantCrud',
-    message: 'Do you want CRUD?',
-  },
+    message: 'Do you want CRUD?'
+  }
 ];
 
-module.exports.actions = function (data) {
-  const {wantCrud} = data;
+module.exports.actions = function(data) {
+  const { wantCrud } = data;
   // other vals: name
 
   let actions = [];
@@ -26,21 +28,21 @@ module.exports.actions = function (data) {
   actions.push({
     type: 'add',
     path: 'app/services/{{pascalCase name}}Service.js',
-    templateFile: __dirname + '/service.js',
+    templateFile: __dirname + '/service.js'
   });
 
   actions.push({
     type: 'modify',
     path: 'app/services/{{pascalCase name}}Service.js',
     pattern: /\$1/g,
-    template: wantCrud ? 'ServiceCrudBase' : 'ServiceBase',
+    template: wantCrud ? 'ServiceCrudBase' : 'ServiceBase'
   });
 
   actions.push({
     type: 'modify',
     path: 'app/services/{{pascalCase name}}Service.js',
     pattern: /\$2/g,
-    template: '{{pascalCase name}}',
+    template: '{{pascalCase name}}'
   });
 
   return actions;

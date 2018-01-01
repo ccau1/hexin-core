@@ -14,20 +14,22 @@ const Plop = require('./Plop');
 const Redis = require('./Redis');
 const Request = require('./Request');
 const Token = require('./Token');
+const Seeder = require('./Seeder');
 
 // in alphabetical order
 module.exports = {
-  BrainTree,
-  Config,
-  Database,
-  FiveBeans,
-  Error,
-  Locale,
-  Logger,
-  Mailer,
-  Mapper,
-  Plop,
-  Redis,
-  Request,
-  Token
+	BrainTree,
+	Config,
+	Database,
+	FiveBeans,
+	Error,
+	Locale,
+	Logger,
+	Mailer,
+	Mapper,
+	Plop,
+	Redis,
+	Request,
+	Token,
+	Seeder
 };

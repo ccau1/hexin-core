@@ -1,75 +1,90 @@
-'use strict';
-
 const express = require('express');
+const http = require('http');
 
 module.exports = class AppStart {
-  static get HANDLE_LIST_BEGINNING() { return true; }
-  static get HANDLE_LIST_END() { return false; }
+	static get HANDLE_LIST_BEGINNING() {
+		return true;
+	}
+	static get HANDLE_LIST_END() {
+		return false;
+	}
 
-  constructor(appConfig) {
-    //  create our express application
-    appConfig.app = express();
-    //  create an instance of router for api
-    appConfig.router = express();
-    //  set config
-    this.appConfig = Object.assign(this.getBaseConfig(), appConfig);
-    this.setConfig(this.appConfig);
+	constructor(appConfig) {
+		//  set config
+		this.appConfig = Object.assign(this.getBaseConfig(), appConfig);
+		this.setConfig(this.appConfig);
 
-    this.handleList = [];
-    this.setHandlers(this.appConfig);
-    this.setBaseHandlers(this.appConfig);
-  }
+		this.handleList = [];
+		this.setHandlers(this.appConfig);
+		this.setBaseHandlers(this.appConfig);
+	}
 
-  getBaseConfig() {
-    return {
-      app: express(),
-      router: express(),
-      baseAppStart: {
-        disable: false,
-      },
-    };
-  }
+	getBaseConfig() {
+		const app = express();
+		return {
+			app,
+			server: http.Server(app),
+			router: express(),
+			baseAppStart: {
+				disable: false
+			}
+		};
+	}
 
-  setBaseHandlers(appConfig) {
-    if (appConfig.baseAppStart.disable) {
-      return false;
-    }
+	setBaseHandlers(appConfig) {
+		if (appConfig.baseAppStart.disable) {
+			return false;
+		}
 
-    return true;
-  }
+		return true;
+	}
 
-  setConfig(appConfig) {
-    throw new ReferenceError('AppStart must override setConfig(appConfig)');
-  }
+	setConfig(appConfig) {
+		throw new ReferenceError('AppStart must override setConfig(appConfig)');
+	}
 
-  setHandlers(appConfig) {
-    throw new ReferenceError('AppStart must override setHandler(appConfig)');
-  }
+	setHandlers(appConfig) {
+		throw new ReferenceError('AppStart must override setHandler(appConfig)');
+	}
 
-  handle(handle, addToBeginning = false) {
-    if (addToBeginning) {
-      this.handleList.unshift(handle);
-    } else {
-      this.handleList.push(handle);
-    }
-  }
+	handle(handle, addToBeginning = false) {
+		if (addToBeginning) {
+			this.handleList.unshift(handle);
+		} else {
+			this.handleList.push(handle);
+		}
+	}
 
-  async init() {
-    await this.doInit(this.appConfig, 'preInit');
-    await this.doInit(this.appConfig, 'init');
-    await this.doInit(this.appConfig, 'postInit');
-  }
+	async init() {
+		try {
+			await this.doInit(this.appConfig, 'preInit');
+			await this.doInit(this.appConfig, 'init').catch(err => {
+				throw err;
+			});
+			await this.doInit(this.appConfig, 'postInit');
+		} catch (err) {
+			throw err;
+		}
+	}
 
-  async doInit(appConfig, methodName, index = 0) {
-    if (!this.handleList[index]) {
-      return true;
-    }
+	async doInit(appConfig, methodName, index = 0) {
+		if (!this.handleList[index]) {
+			return true;
+		}
 
-    return new Promise((resolve, reject) => {
-      this.handleList[index][methodName](async () => {
-        await this.doInit(appConfig, methodName, ++index);
-        resolve();
-      }, appConfig);
-    });
-  }
+		return new Promise(async (resolve, reject) => {
+			const initResultHandler = async err => {
+				if (err) {
+					return reject(err);
+				}
+				return this.doInit(appConfig, methodName, ++index)
+					.then(result => resolve(result))
+					.catch(doInitErr => {
+						reject(doInitErr);
+					});
+			};
+
+			this.handleList[index][methodName](initResultHandler, appConfig);
+		});
+	}
 };

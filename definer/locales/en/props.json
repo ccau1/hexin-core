@@ -1,0 +1,7 @@
+{
+  "userRole": {
+    "customer": "Customer",
+    "staff": "Staff",
+    "systemAdministrator": "System Administrator"
+  }
+}

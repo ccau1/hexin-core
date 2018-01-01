@@ -9,18 +9,22 @@ const Sequelize = require('sequelize');
  * @param configs.replicaSet		replicaSet option (if any)
  * @param configs.database		    database name
  */
-module.exports = async (configs) => {
+module.exports = async configs => {
+	const sequelize = new Sequelize(
+		configs.database,
+		configs.user,
+		configs.pass,
+		configs.configs
+	);
 
-  const sequelize = new Sequelize(configs.database, configs.user, configs.pass, configs.configs);
+	sequelize
+		.authenticate()
+		.then(() => {
+			console.log('Sequelize connection has been established successfully.');
+		})
+		.catch(err => {
+			console.error('Unable to connect to the database:', err);
+		});
 
-  sequelize
-    .authenticate()
-    .then(() => {
-      console.log('Sequelize connection has been established successfully.');
-    })
-    .catch(err => {
-      console.error('Unable to connect to the database:', err);
-    });
-
-  return await sequelize;
+	return await sequelize;
 };

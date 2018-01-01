@@ -1,0 +1,15 @@
+{
+  "payment": {
+    "pending": "Pending",
+    "processing": "Processing",
+    "approved": "Approved",
+    "declined": "Declined",
+    "cancelled": "Cancelled"
+  },
+
+  "shipment": {
+    "accepted": "Accepted",
+    "inTransit": "In Transit",
+    "delivered": "Delivered"
+  }
+}

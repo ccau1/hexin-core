@@ -1,6 +1,5 @@
 'use strict';
 
-
 /*
 
   Quick Note
@@ -25,16 +24,15 @@
   this.delete(_id)                            - Function that delete entry by _id
 */
 
-const {$1} = require('hexin-core');
+const { $1 } = require('httpeace-node-core');
 
 // Models
 const $2 = new require('../models/$2');
 
-
 module.exports = class $2Service extends $1 {
-  constructor(context_) {
-    super(context_, $2);
-  }
+	constructor(context_) {
+		super(context_, $2);
+	}
 
-  // TODO:: Implement Service Methods
+	// TODO:: Implement Service Methods
 };

@@ -1,7 +1,5 @@
-'use strict';
-
 const ControllerBase = require('./ControllerBase');
-const {HttpResponseError, HttpStatusCode} = require('../helpers/Error');
+const { HttpResponseError, HttpStatusCode } = require('../helpers/Error');
 
 module.exports = class ControllerCrudBase extends ControllerBase {
   constructor(app, controllerName, service, middlewares = []) {
@@ -16,12 +14,12 @@ module.exports = class ControllerCrudBase extends ControllerBase {
    * Handles base CRUD calls
    */
   initCrud(route) {
-    const {middlewares} = this;
+    const { middlewares } = this;
     /**
      * Create payment
      */
     route.post('/', middlewares, async (req, res, next) => {
-      const {m} = req;
+      const { m } = req;
       const newModelObj = m.mapper('model')(req.body);
       const modelObjResult = await m.create(newModelObj);
 
@@ -32,15 +30,15 @@ module.exports = class ControllerCrudBase extends ControllerBase {
      * Get payments
      */
     route.get('/', middlewares, async (req, res, next) => {
-      const {m} = req;
+      const { m } = req;
       const modelObjs = await m.getAll();
 
       if (req.query.full !== undefined) {
-        return res.send(modelObjs.map(modelObj => m.mapper('full')(modelObj)));
+        res.send(modelObjs.map(modelObj => m.mapper('full')(modelObj)));
       } else if (req.query.list !== undefined) {
-        return res.send(modelObjs.map(modelObj => m.mapper('list')(modelObj)));
+        res.send(modelObjs.map(modelObj => m.mapper('list')(modelObj)));
       } else {
-        return res.send(modelObjs.map(modelObj => m.mapper()(modelObj)));
+        res.send(modelObjs.map(modelObj => m.mapper()(modelObj)));
       }
     });
 
@@ -48,21 +46,25 @@ module.exports = class ControllerCrudBase extends ControllerBase {
      * Get payment by ID
      */
     route.get('/:_id/', middlewares, async (req, res, next) => {
-      const {m} = req;
+      const { m } = req;
       const modelObj = await m.getById(req.params._id);
 
       if (!modelObj) {
         throw new HttpResponseError(HttpStatusCode.NOT_FOUND);
       }
 
-      return res.send(req.query.full !== undefined ? m.mapper('full')(modelObj) : m.mapper()(modelObj));
+      return res.send(
+        req.query.full !== undefined
+          ? m.mapper('full')(modelObj)
+          : m.mapper()(modelObj)
+      );
     });
 
     /**
      * Update payment
      */
     route.put('/:_id', middlewares, async (req, res, next) => {
-      const {m} = req;
+      const { m } = req;
       const modelObj = m.mapper('model')(req.body);
       const updatedModelObj = await m.update(req.params._id, modelObj);
 
@@ -77,7 +79,7 @@ module.exports = class ControllerCrudBase extends ControllerBase {
      * Remove payment
      */
     route.delete('/:_id', middlewares, async (req, res, next) => {
-      const {m} = req;
+      const { m } = req;
       const deletedModelObj = await m.delete(req.params._id);
 
       if (!deletedModelObj) {

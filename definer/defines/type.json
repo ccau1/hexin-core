@@ -1,0 +1,7 @@
+{
+  "postTypes": {
+    "news": "news",
+    "promotions": "promotions",
+    "others": "others"
+  }
+}

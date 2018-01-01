@@ -9,13 +9,13 @@ const RouterConfig = require('./RouterConfig');
 const ServerStartConfig = require('./ServerStartConfig');
 
 module.exports = {
-  BodyParserConfig,
-  DbConfig,
-  ErrorsConfig,
-  FiveBeansConfig,
-  LoggerConfig,
-  MailerConfig,
-  RedisConfig,
-  RouterConfig,
-  ServerStartConfig
+	BodyParserConfig,
+	DbConfig,
+	ErrorsConfig,
+	FiveBeansConfig,
+	LoggerConfig,
+	MailerConfig,
+	RedisConfig,
+	RouterConfig,
+	ServerStartConfig
 };

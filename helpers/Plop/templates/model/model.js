@@ -1,15 +1,18 @@
 'use strict';
 
-const mongoose = require('hexin-core/helpers/Database').getConnection();
+const mongoose = require('httpeace-node-core/helpers/Database').getConnection();
 const Schema = mongoose.Schema;
 
-const $1Schema = new Schema({
-  // TODO:: Implement Model Schema
-}, {collection: '$2'});
+const $1Schema = new Schema(
+	{
+		// TODO:: Implement Model Schema
+	},
+	{ collection: '$2' }
+);
 
 // Execute before each model.save() call
-$1Schema.pre('save', function (callback) {
-  callback();
+$1Schema.pre('save', function(callback) {
+	callback();
 });
 
 // Export the Mongoose model

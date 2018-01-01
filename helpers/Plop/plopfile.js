@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 const pluralize = require('pluralize');
 
@@ -8,44 +6,40 @@ const controllerGenerator = require('./templates/controller/generator');
 const serviceGenerator = require('./templates/service/generator');
 const appStartGenerator = require('./templates/app_start/generator');
 
-module.exports = function (plop) {
+module.exports = function(plop) {
   module.exports.setHelpers(plop);
   module.exports.setPrompts(plop);
   module.exports.setGenerators(plop);
 };
 
-module.exports.setHelpers = function (plop) {
-  plop.addHelper('absPath', function (val) {
-    return path.resolve(plop.getPlopfilePath(), val);
-  });
-  plop.addHelper('pluralize', function (val) {
-    return pluralize(val, 2);
-  });
+module.exports.setHelpers = function(plop) {
+  plop.addHelper('absPath', val => path.resolve(plop.getPlopfilePath(), val));
+  plop.addHelper('pluralize', val => pluralize(val, 2));
 };
 
-module.exports.setPrompts = function (plop) {
+module.exports.setPrompts = function(plop) {
   // adding a custom inquirer prompt type
   // plop.addPrompt('directory', require('inquirer-directory'));
 };
 
-module.exports.setGenerators = function (plop) {
+module.exports.setGenerators = function(plop) {
   // create your generators here
   plop.setGenerator('Model', {
     description: 'Application Model',
     prompts: modelGenerator.prompts,
-    actions: modelGenerator.actions,
+    actions: modelGenerator.actions
   });
 
   plop.setGenerator('Service', {
     description: 'Application Service',
     prompts: serviceGenerator.prompts,
-    actions: serviceGenerator.actions,
+    actions: serviceGenerator.actions
   });
 
   plop.setGenerator('Controller', {
     description: 'Application Controller',
     prompts: controllerGenerator.prompts,
-    actions: controllerGenerator.actions,
+    actions: controllerGenerator.actions
   });
 
   plop.setGenerator('MSC', {
@@ -55,29 +49,29 @@ module.exports.setGenerators = function (plop) {
         type: 'input',
         name: 'name',
         message: 'Name',
-        validate: function (value) {
-          if ((/.+/).test(value)) { return true; }
+        validate: value => {
+          if (/.+/.test(value)) {
+            return true;
+          }
           return 'name is required';
-        },
+        }
       },
       {
         type: 'confirm',
         name: 'wantCrud',
-        message: 'Do you want CRUD?',
-      },
+        message: 'Do you want CRUD?'
+      }
     ],
-    actions: function (data) {
-      return [
-        ...modelGenerator.actions(data),
-        ...serviceGenerator.actions(data),
-        ...controllerGenerator.actions(data),
-      ];
-    },
+    actions: data => [
+      ...modelGenerator.actions(data),
+      ...serviceGenerator.actions(data),
+      ...controllerGenerator.actions(data)
+    ]
   });
 
   plop.setGenerator('App_Start', {
     description: 'Application App_Start',
     prompts: appStartGenerator.prompts,
-    actions: appStartGenerator.actions,
+    actions: appStartGenerator.actions
   });
 };

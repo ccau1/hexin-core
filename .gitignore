@@ -1,2 +1,13 @@
 .DS_Store
 node_modules
+
+### JetBrains ###
+.idea/encodings.xml
+.idea/httpeace-node-core.iml
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.idea/

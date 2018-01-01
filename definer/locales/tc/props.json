@@ -1,0 +1,7 @@
+{
+  "userRole": {
+    "customer": "客戶",
+    "staff": "員工",
+    "systemAdministrator": "系統管理員"
+  }
+}

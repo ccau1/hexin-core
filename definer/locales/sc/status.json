@@ -1,0 +1,15 @@
+{
+  "payment": {
+    "pending": "Pending ~t",
+    "processing": "Processing ~t",
+    "approved": "Approved ~t",
+    "declined": "Declined ~t",
+    "cancelled": "Cancelled ~t"
+  },
+
+  "shipment": {
+    "accepted": "已获接受",
+    "inTransit": "运送途中",
+    "delivered": "已送达"
+  }
+}

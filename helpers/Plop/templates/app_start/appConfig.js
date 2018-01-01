@@ -1,17 +1,17 @@
 'use strict';
 
-const {AppStartConfig} = require('hexin-core');
+const { AppStartConfig } = require('httpeace-node-core');
 
 module.exports = class $1Config extends AppStartConfig {
-  // preInit() {
+	// preInit() {
 
-  // }
+	// }
 
-  init() {
-    // TODO:: Implement Config init
-  }
+	init() {
+		// TODO:: Implement Config init
+	}
 
-  // postInit() {
+	// postInit() {
 
-  // }
+	// }
 };
